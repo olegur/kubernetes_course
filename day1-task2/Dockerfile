@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine
+FROM alpine:latest
 RUN apk update && apk add nginx unzip
 
 #securitehh more better?
@@ -16,11 +16,13 @@ RUN mv /tmp/startbootstrap-sb-admin-gh-pages/* /www/
 #correct rights after files are placed
 #RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www && chmod -R 755 /www
-RUN chown -R www:www /var/cache/nginx
+#RUN chown -R www:www /var/cache/nginx
+RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /var/log/nginx
-RUN chown -R www:www /etc/nginx/conf.d
-RUN touch /var/run/nginx.pid
-RUN chown -R www:www /var/run/nginx.pid
+#RUN chown -R www:www /etc/nginx/conf.d
+#RUN mkdir /run/nginx
+RUN touch /run/nginx/nginx.pid
+RUN chown -R www:www /run/nginx
 
 #change to www user
 USER www
