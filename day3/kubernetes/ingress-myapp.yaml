@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-website
+  namespace: website
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  ingressClassName: "nginx"
+  rules:
+    - host: lfs01.go4clouds.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp
+                port:
+                  number: 8081
+          - path: /hehehe
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-world
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+      - web01.go4clouds.net
+      secretName: web-go4clouds-net-tls
