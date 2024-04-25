@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: nginx
+        image: docker.io/library/nginx:1.23.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/conf.d
+          readOnly: true
+          name: webapp-conf
+        - mountPath: /srv/webapp
+          readOnly: true
+          name: webapp-html
+        - mountPath: /var/log/nginx
+          name: nginx-log
+      volumes:
+      - name: webapp-conf
+        configMap:
+          name: webapp-conf
+      - name: webapp-html
+        configMap:
+          name: webapp-html
+      - name: nginx-log
+        emptyDir: {}
