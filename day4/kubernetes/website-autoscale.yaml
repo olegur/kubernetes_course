@@ -2,7 +2,6 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: myapp
-  namespace: website
 spec:
   maxReplicas: 9
   minReplicas: 5
