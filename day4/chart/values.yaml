@@ -1,0 +1,9 @@
+replicas: 3
+
+imageName: "gurve/task1_nonroot"
+
+
+service:
+  port: 8080
+  targetPort: 8081
+  type: ClusterIP

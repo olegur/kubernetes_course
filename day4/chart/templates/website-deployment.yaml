@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: {{ .Release.Name }}
 spec:
-  replicas: 5
+  replicas: {{ .Values.replicas }}
   strategy: 
     type: "RollingUpdate"
   selector:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: gurve/task1_nonroot:v0.2.0
+        image: {{ .Values.imageName }}:v{{ .Chart.AppVersion }}
         resources:
           requests:
             cpu: "100m"
