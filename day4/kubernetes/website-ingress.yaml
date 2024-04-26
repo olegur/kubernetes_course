@@ -10,7 +10,7 @@ spec:
     - host: lfs01.go4clouds.net
       http:
         paths:
-          - path: /
+          - path: /rancher-dev
             pathType: Prefix
             backend:
               service:
